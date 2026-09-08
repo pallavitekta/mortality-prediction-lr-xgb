@@ -1,0 +1,18 @@
+# MIMIC-IV raw data (large, and access-controlled even for the demo — don't commit patient data)
+mimic-iv-demo/
+physionet.org/
+*.csv
+*.csv.gz
+
+# Python / Jupyter
+__pycache__/
+.ipynb_checkpoints/
+*.pyc
+.venv/
+venv/
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
