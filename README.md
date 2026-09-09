@@ -1,6 +1,6 @@
-# Predicting Early In-Hospital Mortality from First-24-Hour Clinical Data (MIMIC-IV Demo)
+# **Predicting Early In-Hospital Mortality from First-24-Hour Clinical Data (MIMIC-IV Demo)**
 
-## Project context
+# **Project context**
 
 This project was developed as a hands-on application of concepts covered in **100 Days of Machine Learning**, a machine learning video series by **CampusX**. The project extends those foundational concepts into an end-to-end clinical machine learning problem using real-world electronic health record data from the MIMIC-IV Clinical Database Demo.
 
@@ -10,7 +10,11 @@ The dataset used here is a small, public demo subset of MIMIC-IV which has 100 p
 
 Because this project uses a small demonstration dataset with relatively few mortality events, the results should be considered **exploratory and educational rather than clinically deployable**.
 
-## Ethical considerations
+# **Scope and Rigor** 
+
+Mortality prediction on MIMIC-IV using logistic regression/Lasso and XGBoost is a well-established pattern in published clinical ML research. However, this project did not set out to invent a novel task, and arrived at a similar model comparison independently, before being aware of that literature. Where this project tried to go further than a quick baseline is in the evaluation discipline applied to that comparison: many introductory or rapid analyses report a single train/test split without checking for patient-level leakage across repeat admissions, without verifying that cross-validation folds contain enough events to be statistically valid, and without checking whether a model's predicted probabilities are calibrated or whether its selected features are stable across resamples. This notebook works through each of those checks explicitly (see the walkthrough below), including finding and correcting two rounds of leakage during development. The result is a more honest, if more modest, set of conclusions than a single clean-looking AUC number would have given, which is presented here as the point of the exercise, not a shortcoming of it.
+
+# **Ethical considerations**
 
 These were treated as first-class design decisions, not an afterthought bolted on at the end.
 
@@ -52,7 +56,7 @@ These were treated as first-class design decisions, not an afterthought bolted o
   need to approve a specific validated product for a specific intended
   use. This project does not attempt to meet that bar and isn't intended to.
 
-## Data
+# **Data**
 
 This project uses the **MIMIC-IV Clinical Database Demo (v2.2)**, a
 publicly available, de-identified subset of MIMIC-IV hosted on PhysioNet. The dataset is not included in this repository. 
@@ -68,7 +72,7 @@ publicly available, de-identified subset of MIMIC-IV hosted on PhysioNet. The da
 
 5. VANCOUVER	Pollard T, Moody BE, Lehman L, Gow B, Fernandes C, Xie C, et al. PhysioNet as a global platform for biomedical research. Nature Health. 2026. doi:10.1038/s44360-026-00096-z. Available from: https://rdcu.be/faatM
 
-## Dataset access
+# **Dataset access**
 Users should download it directly from PhysioNet and configure the local path in the notebook before running the analysis.
 
 * Dataset: MIMIC-IV Clinical Database Demo
@@ -84,7 +88,7 @@ The MIMIC-IV dataset is de-identified and is provided for research and education
 
 **Important**: The dataset files themselves are not redistributed with this repository. Please obtain them directly from PhysioNet.
 
-## Problem statement
+# **Problem statement**
 
 > Can clinical information available during the **first 24 hours** of hospitalization predict **in-hospital mortality** in **adult patients**?
 
@@ -94,7 +98,7 @@ Early identification of patients at high risk of death could help clinicians
 2. increase monitoring and reassessment, and
 3. consider appropriate escalation of care.
 
-## Notebook walkthrough (cell-wise concepts)
+# **Notebook walkthrough** (cell-wise concepts)
 
 ### 1. Data loading and admission-level structure
 
@@ -266,7 +270,7 @@ features keep getting selected regardless of which patients happen to be
 in the training set.  A feature selected in only 1 of 5 folds is a signal
 the model latched onto that fold's noise, not a real pattern.
 
-## Results
+# **Results**
 
 - **Nested Lasso:** ROC-AUC 0.484 ± 0.250, PR-AUC 0.165 ± 0.150 : 
   essentially **chance-level discrimination** once patient-level leakage
@@ -292,7 +296,7 @@ the model latched onto that fold's noise, not a real pattern.
   clinical intuition (lactate is a well-established severity marker),
   though still not stable across every fold.
 
-## Limitations
+# **Limitations**
 
 - **Sample size.** 15 events is too few for stable coefficient estimates,
   stable feature selection, or a tight confidence interval on any reported
@@ -317,6 +321,6 @@ the model latched onto that fold's noise, not a real pattern.
   chance-level performance)hold, improve, or change at a realistic
   event count.
 
-## Repository contents
+# **Repository contents**
 
-- Full notebook : `mortality_prediction_XGB.ipynb`.
+- **Full notebook** : `mortality_prediction_XGB.ipynb`.
